@@ -6,7 +6,7 @@ var cheerio = require('cheerio');
 
 const getHtml = async () => {
     try {
-      return await axios.get("http://ncov.mohw.go.kr/");
+      return await axios.get("https://htmlcolorcodes.com/color-picker/");
     } catch (error) {
       console.error(error);
     }
@@ -16,20 +16,21 @@ router.get('/all',(req,res)=>{
     getHtml()
     .then((html) => {
       const $ = cheerio.load(html.data);
-      let parentTag = $("div.liveNum ul.liveNum li");
+      
+      let parentTag = $(".color-code rgb show-sm-inline span");
       // 크롤링할 태그 찾기
 
       let resultArr = [];
       parentTag.each(function (i, elem) {
         let itemObj = {
-          text: $(this).find("strong").text(),
-          num: $(this).find("span").text(),
+          text: $(this).find("input").text(),
+          
         };
         resultArr.push(itemObj);
       });
 
       resultArr.forEach((elem) => {
-        console.log(`현재 ${elem._text}의 현황 : ${elem._num}`);
+        console.log(`${elem._text}`);
       });
       return resultArr;
     })
