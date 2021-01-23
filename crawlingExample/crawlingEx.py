@@ -39,8 +39,11 @@ color5 = driver.find_element_by_xpath('//*[@id="harmonies"]/div[6]/div[2]/h4[1]'
 
 driver.implicitly_wait(3)
 
-print("color1 " + color1.text)
-print("color2 " + color2.text)
-print("color3 " + color3.text)
-print("color4 " + color4.text)
-print("color5 " + color5.text)
+print({{'analogous1': color1.text}})
+print({{'analogous2': color2.text}})
+print({{'analogous3': color3.text}})
+print({{'analogous4': color4.text}})
+print({{'analogous5': color5.text}})
+
+import sys
+print(sys.argv)
