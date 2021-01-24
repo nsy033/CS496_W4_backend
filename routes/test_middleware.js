@@ -5,7 +5,7 @@ var {PythonShell} = require('python-shell');
 // var axios = require('axios');
 // var cheerio = require('cheerio');
 
-router.get('/',(req,res)=>{
+router.get('/all',(req,res)=>{
 
     console.log('server get signal with ', req.query.myColor);
     var options = {
