@@ -1,9 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var {PythonShell} = require('python-shell');
-// var Test = require('../models/test');
-// var axios = require('axios');
-// var cheerio = require('cheerio');
 
 router.get('/all',(req,res)=>{
 

@@ -3,6 +3,7 @@ var path = require('path');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var app = express();
+const multer = require('multer');
 const port = 4000;
 
 const mongoose = require('mongoose')
@@ -24,6 +25,25 @@ app.use('/uploads',express.static('uploads'))
 // app.get('/', (req, res, next) => {
 //     res.send('hello world!');
 // });
+
+const storage = multer.diskStorage({
+    destination: './uploads',
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + '-' +file.originalname)
+    }
+  })
+const upload = multer({ storage: storage }).single('file')
+
+app.post('/uploads', (req, res) => {
+    console.log(req);
+    upload(req, res, (err) => {
+        if (err) {
+        res.sendStatus(500);
+        }
+        res.send(req.file.path);
+        console.log('image file name ' + req.file.path + ' image saved in server');
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running at ${port}`);
