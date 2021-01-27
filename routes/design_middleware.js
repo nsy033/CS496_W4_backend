@@ -11,6 +11,8 @@ router.post('/add', (req,res, next) => {
   design.price=req.body.price;
   design.private=req.body.private;
   design.user_name=req.body.user_name;
+  design.user_email=req.body.user_email;
+  design.like=req.body.like;
   
   design.save(function(err){
       if(err){
@@ -22,13 +24,39 @@ router.post('/add', (req,res, next) => {
   })
 })
 
+//시간순
 router.get('/all',(req,res)=>{
   console.log('server get design signal from client')
   Design.find({private: false},function(err,designs){
     if(err) return res.status(500).send({error:'database failure'})
     res.json(designs);
   })
+  
 })
+
+
+//내림차순
+router.get('/popular',(req,res)=>{
+  console.log('server get design signal from client')
+  Design.find({private: false},function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  }).sort({like:-1})
+  
+})
+
+
+
+
+
+router.post('/update/:id', (req,res, next) => {
+  Design.findOneAndUpdate({_id:req.params.id}, {$set:{like:req.body.like}},{ new: true },function(err,design){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(design);
+  })
+  
+})
+
 
 router.get('/mypage/:name_', (req,res, next) => {
   // console.log(req.params.name_);
@@ -36,6 +64,18 @@ router.get('/mypage/:name_', (req,res, next) => {
     if(err) return res.status(500).send({error:'database failure'})
     res.json(designs);
   })
+})
+
+router.get('/like/:id', (req,res, next) => {
+  
+    Design.find({like:req.params.like}, function(err,designs){
+      
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  }).catch(function (error){
+    console.log(error);
+  }) 
+    
 })
 
 module.exports = router;
