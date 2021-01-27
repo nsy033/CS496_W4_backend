@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use('/testcrawling', testRouter);
 app.use('/design', designRouter);
 
-app.use('/uploads',express.static('uploads'))
+app.use('/uploads',express.static('uploads'));
 // app.get('/', (req, res, next) => {
 //     res.send('hello world!');
 // });

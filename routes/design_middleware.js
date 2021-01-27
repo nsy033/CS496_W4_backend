@@ -9,6 +9,8 @@ router.post('/add', (req,res, next) => {
   design.screenCapture=req.body.screenCapture;
   design.title=req.body.title;
   design.price=req.body.price;
+  design.private=req.body.private;
+  design.user_name=req.body.user_name;
   
   design.save(function(err){
       if(err){
@@ -17,6 +19,22 @@ router.post('/add', (req,res, next) => {
           return;
       }
       res.json({result:1})
+  })
+})
+
+router.get('/all',(req,res)=>{
+  console.log('server get design signal from client')
+  Design.find({private: false},function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  })
+})
+
+router.get('/mypage/:name_', (req,res, next) => {
+  // console.log(req.params.name_);
+  Design.find({user_name:req.params.name_},function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
   })
 })
 

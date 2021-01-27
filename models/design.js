@@ -1,10 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var testSchema = new Schema({
+var designSchema = new Schema({
     screenCapture: String,
     title: String,
-    price: String
+    price: String,
+    private: Boolean,
+    user_name: String,
+    like: Number
 },{collection:'designs'});
 
-module.exports = mongoose.model('Design', testSchema);
+module.exports = mongoose.model('Design', designSchema);
