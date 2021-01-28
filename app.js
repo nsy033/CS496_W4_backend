@@ -13,6 +13,8 @@ mongoose.connect('mongodb+srv://admin:1234@madcamp.rwmfx.mongodb.net/madcamp?ret
 .catch(error => console.log(error))
 var testRouter = require('./routes/test_middleware');
 var designRouter = require('./routes/design_middleware');
+var userRouter = require('./routes/user_middleware');
+
 const bodyParser = require('body-parser');
 app.use(cors());
 app.use(express.json());
@@ -22,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
 app.use('/testcrawling', testRouter);
 app.use('/design', designRouter);
+app.use('/user', userRouter);
 
 app.use('/uploads',express.static('uploads'));
 // app.get('/', (req, res, next) => {

@@ -59,23 +59,22 @@ router.post('/update/:id', (req,res, next) => {
 
 
 router.get('/mypage/:name_', (req,res, next) => {
-  // console.log(req.params.name_);
+  // console.log('my designs ', req.params.name_);
   Design.find({user_name:req.params.name_},function(err,designs){
     if(err) return res.status(500).send({error:'database failure'})
     res.json(designs);
+    // console.log(designs);
   })
 })
 
 router.get('/like/:id', (req,res, next) => {
-  
     Design.find({like:req.params.like}, function(err,designs){
-      
+
     if(err) return res.status(500).send({error:'database failure'})
     res.json(designs);
   }).catch(function (error){
     console.log(error);
   }) 
-    
 })
 
 module.exports = router;
