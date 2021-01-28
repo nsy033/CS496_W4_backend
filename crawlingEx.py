@@ -13,7 +13,7 @@ options.add_argument('headless')
 getColor = sys.argv[1]
 
 # executable_path에는 chromedriver 실행 파일의 경로를 넣고, chrome_options에는 options 변수를 넣습니다.
-driver = webdriver.Chrome(executable_path='/home/ubuntu/madcampWeek4_server/chromedriver', options=options)
+driver = webdriver.Chrome(executable_path='/home/ubuntu/newdir/madcampWeek4_server/chromedriver', options=options)
 driver.get('https://htmlcolorcodes.com/color-picker/')
 sleep(1)
 myColor = driver.find_element_by_xpath('//*[@id="js-picker"]/div[3]/div[2]/input')
