@@ -27,7 +27,7 @@ router.get('/all',(req,res)=>{
   Design.find({private: false},function(err,designs){
     if(err) return res.status(500).send({error:'database failure'})
     res.json(designs);
-  })
+  }).sort({_id:-1})
 })
 
 router.get('/popular',(req,res)=>{
@@ -62,6 +62,23 @@ router.get('/like/:id', (req,res, next) => {
   }).catch(function (error){
     console.log(error);
   }) 
+})
+
+//높은가격순
+router.get('/expensive',(req,res)=>{
+  console.log('server get design signal from client')
+  Design.find({private: false},function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  }).sort({price:-1})
+})
+//낮은 가격 순
+router.get('/cheap',(req,res)=>{
+  console.log('server get design signal from client')
+  Design.find({private: false},function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  }).sort({price:1})
 })
 
 
