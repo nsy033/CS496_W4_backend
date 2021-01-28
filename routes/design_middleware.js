@@ -30,12 +30,40 @@ router.get('/all',(req,res)=>{
   })
 })
 
+router.get('/popular',(req,res)=>{
+  console.log('server get design signal from client')
+  Design.find({private: false},function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  }).sort({like:-1})
+})
+
+router.post('/update/:id', (req,res, next) => {
+  Design.findOneAndUpdate({_id:req.params.id}, {$set:{like:req.body.like}},{ new: true },function(err,design){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(design);
+  })
+})
+
+
 router.get('/mypage/:name_', (req,res, next) => {
-  // console.log(req.params.name_);
+  // console.log('my designs ', req.params.name_);
   Design.find({user_name:req.params.name_},function(err,designs){
     if(err) return res.status(500).send({error:'database failure'})
     res.json(designs);
+    // console.log(designs);
   })
 })
+
+router.get('/like/:id', (req,res, next) => {
+    Design.find({like:req.params.like}, function(err,designs){
+    if(err) return res.status(500).send({error:'database failure'})
+    res.json(designs);
+  }).catch(function (error){
+    console.log(error);
+  }) 
+})
+
+
 
 module.exports = router;

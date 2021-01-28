@@ -7,6 +7,7 @@ var designSchema = new Schema({
     price: String,
     private: Boolean,
     user_name: String,
+    user_email: String,
     like: Number
 },{collection:'designs'});
 
